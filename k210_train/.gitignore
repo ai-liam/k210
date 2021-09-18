@@ -1,0 +1,14 @@
+.ipynb_checkpoints
+__pycache__
+*.tflite
+*.kmodel
+*.dot
+*.bin
+*.profraw
+
+tools/kmodel/ncc
+data/images
+
+out
+out_*
+temp

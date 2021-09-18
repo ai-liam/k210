@@ -1,0 +1,10 @@
+__pycache__
+temp
+.ipynb_checkpoints
+.spec
+.pyc
+*.zip
+*.tar.xz
+.DS_Store
+*/.DS_Store
+ncc-linux-x86_64
