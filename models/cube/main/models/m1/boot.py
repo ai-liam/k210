@@ -1,10 +1,11 @@
+# img code
 import sensor, image, lcd, time
 import gc, sys
+from Maix import utils
+import machine
 
-# config change for youself
+
 img_size = [224,224]
-#labels = ['0', '1', '2']
-#img_size = [224,224]
 board_cube = 1
 
 def lcd_show_except(e):
@@ -40,22 +41,26 @@ def main(sensor_window=(224, 224), lcd_rotation=0, sensor_hmirror=False, sensor_
         lcd.rotation(lcd_rotation)
 
     sensor.run(1)
-    print("Test start run1")
+    print("AA start run")
     lcd.clear(lcd.WHITE)
 
-    while(True):
-        loop()
-
-def loop():
     try:
-        img = sensor.snapshot()
-        if board_cube:
-            img = img.resize(img_size[0], img_size[1])
-            img = img.rotation_corr(z_rotation=90)
-            img.pix_to_ai()
-        img.draw_string(0, 200, "imgTest1", color=lcd.RED,scale=2)
-        lcd.display(img)
-        time.sleep_ms(100)
+        while(True):
+            img = sensor.snapshot()
+            if board_cube:
+               img = img.resize(img_size[0], img_size[1])
+               img = img.rotation_corr(z_rotation=90)
+               img.pix_to_ai()
+
+            res = img.find_qrcodes()
+            if len(res) > 0:
+                    img.draw_string(2,2, "is: %s" %res[0].payload(), color=(0,128,0), scale=3)
+                    print(res[0].payload())
+            img.draw_string(0, 200, "imgCode", color=lcd.RED,scale=2)
+            #{"x":37, "y":32, "w":153, "h":154, "payload":"stop", "version":1, "ecc_level":2, "mask":0, "data_type":4, "eci":0}
+            lcd.display(img)
+            time.sleep_ms(100)
+
     except Exception as e:
         raise e
     finally:
@@ -68,11 +73,7 @@ def run():
         sys.print_exception(e)
         lcd_show_except(e)
     finally:
-        gc.collect()    
-
-def test(st):
-    print("get st:",st)
-    return st+"-m1"
+        gc.collect()
 
 if __name__ == "__main__":
     run()

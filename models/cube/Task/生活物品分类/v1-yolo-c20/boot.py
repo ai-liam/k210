@@ -78,13 +78,17 @@ def lcd_show_except(e):
     img.draw_string(0, 10, err_str, scale=1, color=(0xff,0x00,0x00))
     lcd.display(img)
 
-if __name__ == "__main__":
+def run():
     print("start class 20")
     try:
-        main( model_addr=0x300000 ,lcd_rotation=1, sensor_hmirror=False, sensor_vflip=False)
-        #main(model_addr="/sd/models/class20_210915.kmodel",lcd_rotation=1, sensor_hmirror=False, sensor_vflip=False)
+        #main( model_addr=0x300000 ,lcd_rotation=1, sensor_hmirror=False, sensor_vflip=False)
+        main(model_addr="/sd/models/m3/class20_210915.kmodel",lcd_rotation=1, sensor_hmirror=False, sensor_vflip=False)
     except Exception as e:
         sys.print_exception(e)
         lcd_show_except(e)
     finally:
         gc.collect()
+
+if __name__ == "__main__":
+    print("start class 20")
+    run()
