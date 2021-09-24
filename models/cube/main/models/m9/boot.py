@@ -1,8 +1,5 @@
 import sensor, image, lcd, time
 import gc, sys
-import models.m1.boot as m1
-import models.m2.boot as m2
-import models.m3.boot as m3
 
 # config change for youself
 img_size = [224,224]
@@ -45,11 +42,9 @@ def main(sensor_window=(224, 224), lcd_rotation=0, sensor_hmirror=False, sensor_
     sensor.run(1)
     print("Test start run")
     lcd.clear(lcd.WHITE)
-    ts = m1.test("hi")
-    print(ts)
-    m3.run()
-    #while(True):
-        #loop()
+
+    while(True):
+        loop()
 
 def loop():
     try:
@@ -58,7 +53,7 @@ def loop():
             img = img.resize(img_size[0], img_size[1])
             img = img.rotation_corr(z_rotation=90)
             img.pix_to_ai()
-        img.draw_string(0, 200, "imgTest main", color=lcd.RED,scale=2)
+        img.draw_string(0, 200, "imgTest9", color=lcd.RED,scale=2)
         lcd.display(img)
         time.sleep_ms(100)
     except Exception as e:
@@ -73,7 +68,11 @@ def run():
         sys.print_exception(e)
         lcd_show_except(e)
     finally:
-        gc.collect()
+        gc.collect()    
+
+def test(st):
+    print("get st:",st)
+    return st+"-m3"
 
 if __name__ == "__main__":
     run()

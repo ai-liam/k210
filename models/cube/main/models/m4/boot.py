@@ -1,11 +1,10 @@
 import sensor, image, lcd, time
 import gc, sys
-#import _thread
-import models.m1.boot as m1
-import models.m2.boot as m2
-import models.m3.boot as m3
 
+# config change for youself
 img_size = [224,224]
+#labels = ['0', '1', '2']
+#img_size = [224,224]
 board_cube = 1
 
 def lcd_show_except(e):
@@ -43,12 +42,7 @@ def main(sensor_window=(224, 224), lcd_rotation=0, sensor_hmirror=False, sensor_
     sensor.run(1)
     print("Test start run")
     lcd.clear(lcd.WHITE)
-    ts = m1.test("hi")
-    print(ts)
-    m3.run()
 
-    #_thread.start_new_thread(thread_listem1,(0,))
-    #_thread.start_new_thread(thread_listem2,(1,))
     while(True):
         loop()
 
@@ -59,25 +53,13 @@ def loop():
             img = img.resize(img_size[0], img_size[1])
             img = img.rotation_corr(z_rotation=90)
             img.pix_to_ai()
-        img.draw_string(0, 200, "imgTest main", color=lcd.RED,scale=2)
+        img.draw_string(0, 200, "imgTest4", color=lcd.RED,scale=2)
         lcd.display(img)
         time.sleep_ms(100)
     except Exception as e:
         raise e
     finally:
         pass
-
-def thread_listem1(status):
-    while(True):
-        status = 0 if (status==1) else 1
-        print("thread_bottom_listem 1:",str(status))
-        time.sleep_ms(200)
-
-def thread_listem2(status):
-    while(True):
-        status = 0 if (status==1) else 1
-        print("thread_bottom_listem 2:",str(status))
-        time.sleep_ms(200)
 
 def run():
     try:
@@ -86,7 +68,11 @@ def run():
         sys.print_exception(e)
         lcd_show_except(e)
     finally:
-        gc.collect()
+        gc.collect()    
+
+def test(st):
+    print("get st:",st)
+    return st+"-m3"
 
 if __name__ == "__main__":
     run()
