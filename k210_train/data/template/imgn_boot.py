@@ -79,7 +79,7 @@ def main(model_addr="/sd/m.kmodel", sensor_window=(224, 224), lcd_rotation=0, se
     finally:
         kpu.deinit(task)
 
-if __name__ == "__main__":
+def run():
     try:
         #main( model_addr=0x300000)
         main(model_addr="/sd/m.kmodel")
@@ -88,3 +88,6 @@ if __name__ == "__main__":
         lcd_show_except(e)
     finally:
         gc.collect()
+
+if __name__ == "__main__":
+    run()

@@ -73,7 +73,7 @@ def main( model_addr="/sd/m.kmodel", lcd_rotation=0, sensor_hmirror=False, senso
         if not task is None:
            kpu.deinit(task)
 
-if __name__ == "__main__":
+def run():
     try:
         print("start: yolo")
         #main( model_addr=0x300000)
@@ -82,4 +82,7 @@ if __name__ == "__main__":
         sys.print_exception(e)
         lcd_show_except(e)
     finally:
-        gc.collect()
+        gc.collect()    
+
+if __name__ == "__main__":
+    run()
