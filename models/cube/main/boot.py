@@ -40,6 +40,52 @@ def draw_string(img, x, y, text, color, scale, bg=None ):
     img = img.draw_string(x, y, text, color=color,scale=scale)
     return img
 
+
+def client_next():
+    global model_index
+    if run_state == 0 and key_next.value() == 0 and model_index < 9:
+        model_index = model_index +1
+
+
+def client_back():
+    global model_index
+    if run_state == 0 and key_back.value() == 0 and model_index >1 :
+        model_index = model_index - 1
+
+def client_enter():
+    pass
+
+def next_model(img,_index):
+    if _index < 0 or _index > 9:
+        _index = 1
+    _w = int(img_size[0] / 3)
+    x =0
+    y =0
+    img.draw_rectangle((x, y, _w, _w), color=lcd.RED)
+
+
+def loop():
+    try:
+        print("key next:",str(key_next.value()))
+        print("key back:",str(key_back.value()))
+        print("key enter:",str(key_enter.value()))
+        img = sensor.snapshot()
+        if board_cube:
+            img = img.resize(img_size[0], img_size[1])
+            img = img.rotation_corr(z_rotation=90)
+            #img.pix_to_ai()
+        img.draw_string(0, 200, "imgTest main", color=lcd.RED,scale=2)
+        client_next()
+        client_back()
+        client_enter()
+        next_model(img,model_index)
+        lcd.display(img)
+        time.sleep_ms(200)
+    except Exception as e:
+        raise e
+    finally:
+        pass
+
 def main(sensor_window=(224, 224), lcd_rotation=0, sensor_hmirror=False, sensor_vflip=False):
     sensor.reset()
     sensor.set_pixformat(sensor.RGB565)
@@ -68,44 +114,17 @@ def main(sensor_window=(224, 224), lcd_rotation=0, sensor_hmirror=False, sensor_
     while(True):
         loop()
 
-def loop():
-    try:
-        print("key next:",str(key_next.value()))
-        print("key back:",str(key_back.value()))
-        print("key enter:",str(key_enter.value()))
-        img = sensor.snapshot()
-        if board_cube:
-            img = img.resize(img_size[0], img_size[1])
-            img = img.rotation_corr(z_rotation=90)
-            #img.pix_to_ai()
-        img.draw_string(0, 200, "imgTest main", color=lcd.RED,scale=2)
 
-        #next_model(img,model_index)
-
-        lcd.display(img)
-        time.sleep_ms(100)
-    except Exception as e:
-        raise e
-    finally:
-        pass
-
-def next_model(img,_index):
-    if _index < 0 or _index > 9:
-        _index = 1
-    w = int(img_size[0] / 3)
-    img.draw_rectangle(0, 0, w,w, color=lcd.RED)
-    pass
-
-def enter_model(_index):
-    run_state = 1
-    if _index == 1:
-        m1.run()
-    else if _index == 2:
-        m2.run()
-    else if _index == 3:
-        m3.run()
-    else :
-        run_state = 0
+#def enter_model(_index):
+    #run_state = 1
+    #if _index == 1:
+        #m1.run()
+    #else if _index == 2:
+        #m2.run()
+    #else if _index == 3:
+        #m3.run()
+    #else :
+        #run_state = 0
 
 
 def thread_listem1(status):
