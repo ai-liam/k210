@@ -113,7 +113,8 @@ class Classifier(Train_Base):
     def train(self, epochs= 100,
                     progress_cb=None,
                     weights=os.path.join(curr_file_dir, "weights", "mobilenet_7_5_224_tf_no_top.h5"),
-                    batch_size = 5
+                    batch_size = 5,
+                    can_gen = True
                     ):
         self.log.i("train, labels:{}".format(self.labels))
         self.log.d("train, datasets dir:{}".format(self.datasets_dir))
@@ -145,17 +146,31 @@ class Classifier(Train_Base):
         # datasets process
         from tensorflow.keras.preprocessing.image import ImageDataGenerator
         from tensorflow.keras.applications.mobilenet import preprocess_input
-        train_gen = ImageDataGenerator(
-                preprocessing_function=preprocess_input,
-                rotation_range=180,
-                featurewise_center=True,
-                featurewise_std_normalization=True,
-                width_shift_range=0.2,height_shift_range=0.2,
-                zoom_range=0.5,
-                shear_range=0.5,
-                validation_split=0.2
-            )
-
+        # 注意：转左右，会有问题！
+        #can_gen = True
+        if can_gen:
+            train_gen = ImageDataGenerator(
+                    preprocessing_function=preprocess_input,
+                    rotation_range=180,
+                    featurewise_center=True,
+                    featurewise_std_normalization=True,
+                    width_shift_range=0.2,height_shift_range=0.2,
+                    zoom_range=0.5,
+                    shear_range=0.5,
+                    validation_split=0.2
+                )
+        else:
+            train_gen = ImageDataGenerator(
+                    preprocessing_function=preprocess_input,
+                    rotation_range=4,
+                    featurewise_center=False,#使输入数据集去中心化
+                    featurewise_std_normalization=False,#将输入除以数据集的标准差以完成标准化
+                    width_shift_range=0.1,
+                    height_shift_range=0.1,
+                    zoom_range=0.1,
+                    shear_range=0.1,#剪切强度（逆时针方向的剪切变换角度）
+                    validation_split=0.2 #按一定比例从训练集中取出一部分作为验证集
+                )
         train_data = train_gen.flow_from_directory(self.datasets_dir,
                 target_size=(self.input_shape[0], self.input_shape[1]),
                 color_mode='rgb',
@@ -164,6 +179,9 @@ class Classifier(Train_Base):
                 shuffle=True,
                 subset= "training"
                 )
+        #print("labels:",train_data.class_indices)
+        self.labels = train_data.class_indices.keys()
+        print("self.labels::::",self.labels)# 这个labels才正确！
         valid_data = train_gen.flow_from_directory(self.datasets_dir,
                 target_size=(self.input_shape[0], self.input_shape[1]),
                 color_mode='rgb',
@@ -351,7 +369,10 @@ class Classifier(Train_Base):
         else: # empty zip
             return None
         return datasets_dir
-
+    
+    def get_labels(self):
+        return self.labels
+        
     def _get_labels(self, datasets_dir):
         labels = []
         for d in os.listdir(datasets_dir):
@@ -373,7 +394,7 @@ class Classifier(Train_Base):
         if len(labels) > max_classes_num:
             err_msg = "datasets too much class or directory error, limit:{} classses".format(max_classes_num)
             return False, err_msg
-        print(labels,"---------")
+        #print(labels,"---------")
         for label in labels:
             if not isascii(label):
                 return False, "class name(label) should not contain special letters"

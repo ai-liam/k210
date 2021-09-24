@@ -1,5 +1,5 @@
 __pycache__
-temp
+.idea
 instance
 out
 out_*
@@ -14,8 +14,10 @@ ir_*.dot
 .DS_Store
 */.DS_Store
 *.tar.xz
+temp
+*/temp
 
 maix_train
 datasets
-models
-*/temp
+#models
+

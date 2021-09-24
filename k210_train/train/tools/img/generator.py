@@ -2,6 +2,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.preprocessing import image
 
 import os
+import random
 
 # 数据增强
 """
@@ -17,11 +18,11 @@ import os
 """
 
 datagen = ImageDataGenerator(
-        rotation_range=40,
-        width_shift_range=0.2,
-        height_shift_range=0.2,
-        shear_range=0.2,
-        zoom_range=0.2,
+        rotation_range=10,
+        width_shift_range=0.1,
+        height_shift_range=0.1,
+        shear_range=0.1,
+        zoom_range=0.1,
         horizontal_flip=False,
         fill_mode='nearest')
 
@@ -31,13 +32,14 @@ def generator_one(img_path="img/a/1.jpg",num=1):
         x = image.img_to_array(img)
         x = x.reshape((1,) + x.shape)
         num = num -1
+        ran = random.randint(0,99)
         # 绘制9张随机增强后的图像
         for i, batch in enumerate(datagen.flow(x, batch_size=1)):
             draw=image.array_to_img(batch[0])
             fpath, fname = os.path.split(img_path)
             ex = os.path.splitext(fname)[1]
             _name = os.path.splitext(fname)[0]
-            name = f"aug_{_name}-{str(i)}{ex}"
+            name = f"aug_{str(ran)}-{str(i)}-{_name}{ex}"
             save_path = os.path.join(fpath,name)
             draw.save(save_path)
             #print(save_path)
