@@ -10,7 +10,7 @@ build
 tools/ncc/*/
 datasets/ts_*
 ir_*.dot
-*.zip
+#*.zip
 .DS_Store
 */.DS_Store
 *.tar.xz
@@ -18,7 +18,7 @@ temp
 */temp
 
 maix_train
-datasets
+datasets/ts_*
 #models
 private_*.*
 ts_save

@@ -1,0 +1,9 @@
+__pycache__
+temp
+.ipynb_checkpoints
+.spec
+.pyc
+*.tar.xz
+.DS_Store
+*/.DS_Store
+ts_*

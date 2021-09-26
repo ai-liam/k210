@@ -51,7 +51,8 @@ class Classifier(Train_Base):
             self.log = Fake_Logger()
         # unzip datasets
         if datasets_zip:
-            self.datasets_dir = self._unpack_datasets(datasets_zip, unpack_dir)
+            self.datasets_dir = self._unpack_datasets(datasets_zip, unpack_dir)+"/images"
+            print("self.datasets_dir:",self.datasets_dir)
             if not self.datasets_dir:
                 self.log.e("can't detect datasets, check zip format")
                 raise Exception("can't detect datasets, check zip format")
