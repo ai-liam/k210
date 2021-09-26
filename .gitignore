@@ -1,6 +1,5 @@
 __pycache__
 .idea
-instance
 out
 out_*
 build
@@ -8,7 +7,6 @@ build
 .spec
 .pyc
 tools/ncc/*/
-datasets/ts_*
 ir_*.dot
 #*.zip
 .DS_Store
@@ -18,7 +16,6 @@ temp
 */temp
 
 maix_train
-datasets/ts_*
 #models
 private_*.*
 ts_save
