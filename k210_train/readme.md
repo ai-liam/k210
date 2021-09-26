@@ -1,5 +1,13 @@
 # 训练
 
+## 环境
+
+```
+pip3 install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple/
+or
+pip3 install -r requirements.txt
+```
+
 ## 转kmodel
 
 '''shell
