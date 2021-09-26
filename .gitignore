@@ -20,4 +20,5 @@ temp
 maix_train
 datasets
 #models
-
+private_*.*
+ts_save

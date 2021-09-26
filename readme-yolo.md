@@ -24,38 +24,3 @@ pip install -r requirements.txt
 ### 小结V2
 
 本地跑不起来，太老了。
-
-## yolov5
-
-https://github.com/ultralytics/yolov5
-
-### python环境V5
-
-source ~/.bash_profile
-conda info -e
-conda create -n yolov5 python=3.8
-conda activate yolov5
-
-conda activate yolov5 --default
-conda remove -n yolov5 --all
-
-### 安装依赖V5
-
-cd temp/object-detection/yolov5
-pip install -r requirements.txt
-
-### 测试V5
-
-```shell
-$ python detect.py --source 0  # webcam
-                            file.jpg  # image 
-                            file.mp4  # video
-                            path/  # directory
-                            path/*.jpg  # glob
-                            'https://youtu.be/NUsoVlDFqZg'  # YouTube video
-                            'rtsp://example.com/media.mp4'  # RTSP, RTMP, HTTP stream
-
-```
-
-python detect.py --source data/images/zidane.jpeg --weights yolov5s.pt --conf 0.25
-测试成功。

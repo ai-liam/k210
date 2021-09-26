@@ -1,6 +1,33 @@
 # k210的cube可以运行的模型
 
-https://makeblock.feishu.cn/wiki/wikcn7SK6IM2EZqlaYKG1yPsTDg
+把 cube/main复制到 sd 卡，SD 目录为
+(base) liam18@liam main % tree
+.
+├── boot.py
+├── cube_boot.py
+└── models
+    ├── 9ge.jpg
+    ├── m1
+    │   └── boot.py
+    ├── m2
+    │   ├── boot.py
+    │   └── facedetect_210915.kmodel
+    ├── m3
+    │   ├── boot.py
+    │   └── class20_210915.kmodel
+    ├── m4
+    │   └── boot.py
+    ├── m5
+    │   └── boot.py
+    ├── m6
+    │   └── boot.py
+    ├── m7
+    │   └── boot.py
+    ├── m8
+    │   └── boot.py
+    ├── m9
+    │   └── boot.py
+    └── readme.txt
 
 ## 脸部检测
 
