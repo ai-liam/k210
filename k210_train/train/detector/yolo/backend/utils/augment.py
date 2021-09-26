@@ -2,8 +2,9 @@
 from imgaug import augmenters as iaa
 import cv2
 import numpy as np
+import cv2, random, os
 np.random.seed(1337)
-import cv2, random, imutils, os
+#import cv2, random, imutils, os
 
 # bg_folder = "datasets/cards/bg"
 # bgs = []
