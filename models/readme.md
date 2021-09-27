@@ -40,7 +40,7 @@
 
 ./cube/垃圾分类/v0: 不成功
 https://baike.baidu.com/item/%E5%9E%83%E5%9C%BE%E5%88%86%E7%B1%BB/2904193
-
+https://aistudio.baidu.com/aistudio/datasetdetail/77996
     热门的主题；分5类：塑料制品｜塑料瓶｜纸杯和纸质容器｜残余饮料｜食物残渣、纸巾和筷子
 
 ## 交通标识
