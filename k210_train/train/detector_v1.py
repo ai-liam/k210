@@ -100,7 +100,7 @@ def detector_train(datasets_zip_path="",datasets_dir="",temp_datasets_dir="",con
     log.i("train ok, now generate report")
     detector.report(result_report_img_path)
     
-    return True , detector,final_h5_model_path,anchors
+    return True , detector,final_h5_model_path,anchors , detector.get_labels()
 
 def main(datasets_dir= ""):
     cur_time = time.strftime("%Y-%m-%d_%H_%M", time.localtime())
@@ -112,9 +112,11 @@ def main(datasets_dir= ""):
         datasets_dir =  os.path.join(curr_dir,"../../datasets/ts_xml_format")#数据源
     print("datasets_dir:",datasets_dir)
     config.detector_train_epochs = 1 # 修改训练轮数 40
-    result,obj,model_path ,labels = detector_train(datasets_dir=datasets_dir,temp_datasets_dir=temp_saves_dir,config=config)
+    result,obj,model_path ,anchors,labels = detector_train(datasets_dir=datasets_dir,temp_datasets_dir=temp_saves_dir,config=config)
     print("model_path:",model_path)
-    return result,obj,model_path ,labels
+    print("anchors:",anchors)
+    print("labels:",labels)
+    return result,obj,model_path ,anchors,labels
 
 if __name__ == "__main__":
     sys.exit(main())

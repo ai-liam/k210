@@ -344,6 +344,9 @@ class Detector(Train_Base):
     def infer(self, input):
         pass
 
+    def get_labels(self):
+        return self.labels
+
     def get_sample_images(self, sample_num, copy_to_dir):
         from PIL import Image
         if self.datasets_x is None:
